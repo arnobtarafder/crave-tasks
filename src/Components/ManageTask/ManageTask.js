@@ -12,23 +12,23 @@ import { MdAddCircleOutline } from "react-icons/md";
 
 const ManageTask = () => {
   useTitle("Manage Tasks");
-  const [modalToDo, setModalToDo] = useState({});
+  const [modalTask, setModalTask] = useState({});
   const [user] = useAuthState(auth);
   const {
-    data: toDosData,
+    data: tasksData,
     isLoading,
     refetch,
-  } = useQuery("todos", () =>
-    fetch(`http://localhost:5000/myToDoS?email=${auth?.currentUser?.email}`, {
+  } = useQuery("tasks", () =>
+    fetch(`https://crave-tasks.herokuapp.com/myTasks?email=${auth?.currentUser?.email}`, {
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
     }).then((res) => res.json())
   );
 
-  const handleToCreateToDoS = (e) => {
+  const handleToCreateTasks = (e) => {
     e.preventDefault();
-    const createToDo = {
+    const createTask = {
       email: user?.email,
       title: e.target.title.value,
       description: e.target.description.value,
@@ -40,13 +40,13 @@ const ManageTask = () => {
         email: auth?.currentUser?.email,
       },
     };
-    fetch(`http://localhost:5000/createToDo?uid=${auth?.currentUser?.uid}`, {
+    fetch(`https://crave-tasks.herokuapp.com/createTask?uid=${auth?.currentUser?.uid}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
-      body: JSON.stringify(createToDo),
+      body: JSON.stringify(createTask),
     })
       .then((res) => res.json())
       .then((result) => {
@@ -61,32 +61,32 @@ const ManageTask = () => {
   // submit form with enter key
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
-      handleToCreateToDoS(e);
+      handleToCreateTasks(e);
     }
   };
 
   const [titleField, setTitleField] = useState("");
   const [descriptionField, setDescriptionField] = useState("");
 
-  const handleUpdateToDoS = async (e) => {
+  const handleUpdateTask = async (e) => {
     e.preventDefault();
 
-    await fetch(`http://localhost:5000/todos/updateToDoS/${modalToDo._id}`, {
+    await fetch(`https://crave-tasks.herokuapp.com/task/updateTask/${modalTask._id}`, {
       method: "PATCH",
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         "content-type": "application/json",
       },
       body: JSON.stringify({
-        title: titleField || modalToDo?.title,
-        description: descriptionField || modalToDo?.description,
+        title: titleField || modalTask?.title,
+        description: descriptionField || modalTask?.description,
       }),
     })
       .then((res) => res.json())
       .then((result) => {
         if (result.modifiedCount) {
-          toast.success(`ToDoS updated successfully`);
-          setModalToDo(null);
+          toast.success(`Task updated successfully`);
+          setModalTask(null);
           refetch();
         }
       });
@@ -98,33 +98,33 @@ const ManageTask = () => {
 
   return (
     <section className="bg-base-100 h-screen">
-      <div className="py-12 mt-16 lg:pt-24 bg-base-100">
+      <div className="bg-base-100 py-12 mt-16 lg:pt-24">
         <div className="card-actions justify-center">
-          {toDosData?.length > 0 && (
+          {tasksData?.length > 0 && (
             <label
-              htmlFor="toDosModal"
+              htmlFor="tasksModal"
               className="btn btn-md btn-primary text-white uppercase"
             >
-              <MdAddCircleOutline className="mr-1 text-lg" /> Add ToDoS
+              <MdAddCircleOutline className="mr-1 text-lg" /> Add Tasks
             </label>
           )}
         </div>
         <form
-          onSubmit={handleToCreateToDoS}
+          onSubmit={handleToCreateTasks}
           onKeyPress={handleKeyPress}
           className="grid grid-cols-1 gap-3 justify-items-center mt-2"
         >
-          <input type="checkbox" id="toDosModal" className="modal-toggle" />
+          <input type="checkbox" id="tasksModal" className="modal-toggle" />
           <div className="modal modal-bottom sm:modal-middle">
             <div className="modal-box text-center">
               <label
-                htmlFor="toDosModal"
+                htmlFor="tasksModal"
                 className="btn btn-sm btn-circle absolute right-2 top-2 text-white"
               >
                 ✕
               </label>
               <h3 className="font-semibold text-xl mb-6">
-                Input Your To Do Details
+                Input Your Task Details
               </h3>
 
               <input
@@ -144,7 +144,7 @@ const ManageTask = () => {
               />
               <input
                 type="submit"
-                value="Add ToDo"
+                value="Add Task"
                 className="btn btn-md mt-3 text-white"
               />
             </div>
@@ -156,12 +156,12 @@ const ManageTask = () => {
         <div className="overflow-x-auto">
           {isLoading ? (
             <Loader />
-          ) : toDosData?.length > 0 ? (
+          ) : tasksData?.length > 0 ? (
             <>
               <table className="table w-full">
                 <thead>
                   <tr>
-                    <th>No</th>
+                    <th>No.</th>
                     <th>Complete</th>
                     <th>Title</th>
                     <th>Description</th>
@@ -171,13 +171,13 @@ const ManageTask = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {toDosData?.map((task, ind) => (
+                  {tasksData?.map((task, ind) => (
                     <TaskList
                       key={task._id}
                       {...task}
                       serialize={ind}
                       refetch={refetch}
-                      setModalProduct={setModalToDo}
+                      setModalProduct={setModalTask}
                     />
                   ))}
                 </tbody>
@@ -187,10 +187,10 @@ const ManageTask = () => {
             <div>
               <div className="flex justify-center items-center mx-auto pb-7">
                 <label
-                  htmlFor="toDosModal"
+                  htmlFor="tasksModal"
                   className="btn btn-md btn-primary text-white uppercase"
                 >
-                  <MdAddCircleOutline className="mr-1 text-lg" /> Add New ToDoS
+                  <MdAddCircleOutline className="mr-1 text-lg" /> Add New Tasks
                 </label>
               </div>
               <tr className="flex items-center justify-center mx-auto rounded">
@@ -218,7 +218,7 @@ const ManageTask = () => {
             </div>
           )}
         </div>
-        {modalToDo && (
+        {modalTask && (
           <>
             <input type="checkbox" id="updateModal" className="modal-toggle" />
             <div className="modal modal-bottom sm:modal-middle">
@@ -230,16 +230,16 @@ const ManageTask = () => {
                   ✕
                 </label>
                 <p className="font-semibold">
-                  Update Your To Do Details From Here
+                  Update Your Task Details From Here
                 </p>
-                <form onSubmit={handleUpdateToDoS} action="" className="my-2">
+                <form onSubmit={handleUpdateTask} action="" className="my-2">
                   <div className="my-4">
                     <label htmlFor="stock">Title</label>
                     <input
                       type="text"
                       placeholder="Put Your Product Name"
                       className="input input-bordered w-full my-3"
-                      value={titleField || modalToDo?.title}
+                      value={titleField || modalTask?.title}
                       onChange={(event) => setTitleField(event.target.value)}
                     />
                   </div>
@@ -247,7 +247,7 @@ const ManageTask = () => {
                     <label htmlFor="stock">Description</label>
                     <textarea
                       type="text"
-                      value={descriptionField || modalToDo?.description}
+                      value={descriptionField || modalTask?.description}
                       className="input input-bordered w-full my-3"
                       placeholder="Description"
                       style={{ resize: "none", height: "8rem" }}
@@ -264,7 +264,7 @@ const ManageTask = () => {
             </div>
           </>
         )}
-        {modalToDo && (
+        {modalTask && (
           <>
             <input type="checkbox" id="detailsModal" className="modal-toggle" />
             <div className="modal modal-bottom sm:modal-middle">
@@ -276,21 +276,21 @@ const ManageTask = () => {
                   ✕
                 </label>
                 <div className="my-4">
-                  <p className="text-2xl text-center">{modalToDo?.title}</p>
+                  <p className="text-2xl text-center">{modalTask?.title}</p>
                 </div>
                 <div className="my-4 p-4">
-                  <p className="text-center">{modalToDo?.description}</p>
+                  <p className="text-center">{modalTask?.description}</p>
                 </div>
                 <div className="card-actions justify-end">
                   Added By -{" "}
                   <div className="badge badge-outline badge-success">
-                    {modalToDo?.addedBy?.name}
+                    {modalTask?.addedBy?.name}
                   </div>
                 </div>
                 <div className="card-actions justify-end mt-2">
                   Added On -{" "}
                   <div className="badge badge-outline badge-neutral">
-                    {modalToDo?.createdAt}
+                    {modalTask?.createdAt}
                   </div>
                 </div>
               </div>

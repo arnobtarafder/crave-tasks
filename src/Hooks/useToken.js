@@ -9,7 +9,7 @@ const useToken = (user) => {
     const uid = user?.user?.uid;
     const currentUser = { email: email, uid: uid };
     if (email) {
-      fetch(`http://localhost:5000/user?email=${email}&&uid=${uid}`, {
+      fetch(`https://crave-tasks.herokuapp.com/user?email=${email}&&uid=${uid}`, {
         method: "PUT",
         headers: {
           "content-type": "application/json",

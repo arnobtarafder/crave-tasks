@@ -8,6 +8,7 @@ import RequireAuth from './Components/Authentication/RequireAuth/RequireAuth';
 import ResetPassword from './Components/Authentication/ResetPassword/ResetPassword';
 import Calendar from './Components/Calendar/Calendar';
 import CompletedTask from './Components/CompletedTask/CompletedTask';
+import Footer from './Components/General/Footer/Footer';
 import Navbar from './Components/General/Navbar/Navbar';
 import ManageTask from './Components/ManageTask/ManageTask';
 import NotFound from './Components/NotFound/NotFound';
@@ -82,6 +83,8 @@ function App() {
         <Route path='/reset-password' element={<ResetPassword />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
+
+      <Footer />
       <Toaster />
 
     </div>

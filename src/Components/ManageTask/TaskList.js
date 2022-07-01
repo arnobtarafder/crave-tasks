@@ -1,9 +1,10 @@
 import React from "react";
 import toast from "react-hot-toast";
-import { FiDelete, FiEdit3 } from "react-icons/fi";
+import { FiDelete } from "react-icons/fi";
 import Swal from "sweetalert2";
 import auth from "../../firebase.init";
 import { FaRegEye } from "react-icons/fa";
+import { RiEdit2Fill } from "react-icons/ri";
 
 const TaskList = ({
   title,
@@ -28,7 +29,7 @@ const TaskList = ({
     }).then((result) => {
       if (result.value) {
         fetch(
-          `http://localhost:5000/todos?todoId=${id}&&uid=${auth?.currentUser?.uid}`,
+          `https://crave-tasks.herokuapp.com/task?todoId=${id}&&uid=${auth?.currentUser?.uid}`,
           {
             method: "DELETE",
             headers: {
@@ -49,7 +50,7 @@ const TaskList = ({
 
   const handleCompleteInfo = async (id) => {
     await fetch(
-      `http://localhost:5000/todos?todoId=${id}&&uid=${auth?.currentUser?.uid}`,
+      `https://crave-tasks.herokuapp.com/task?todoId=${id}&&uid=${auth?.currentUser?.uid}`,
       {
         method: "PATCH",
         headers: {
@@ -118,7 +119,7 @@ const TaskList = ({
           disabled={completed && true}
           onClick={() => setModalProduct({ _id, title, description })}
         >
-          <FiEdit3 />
+          <RiEdit2Fill />
         </label>
       </td>
       <td>

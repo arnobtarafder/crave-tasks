@@ -6,14 +6,14 @@ import TaskRow from "./TaskRow";
 import useTitle from "../../Hooks/useTitle";
 
 const CompletedTask = () => {
-  useTitle("Completed To Do");
+  useTitle("Completed Tasks");
   const {
     data: completedData,
     isLoading,
     refetch,
   } = useQuery("completed", () =>
     fetch(
-      `http://localhost:5000/myToDoS/completed?email=${auth?.currentUser?.email}`,
+      `https://crave-tasks.herokuapp.com/myTasks/completed?email=${auth?.currentUser?.email}`,
       {
         headers: {
           authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -25,7 +25,7 @@ const CompletedTask = () => {
   return (
     <div className="px-0 lg:px-52 py-12 mt-8 lg:pt-32 bg-base-100 h-screen">
       <div className="title my-2 mb-6 px-4">
-        <h3 className="text-2xl font-semibold">Completed ToDoS</h3>
+        <h3 className="text-2xl font-semibold">Completed Tasks</h3>
         <span>
           You can see all the completed tasks which you're completed already.
         </span>
