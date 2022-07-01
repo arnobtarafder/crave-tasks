@@ -1,4 +1,4 @@
-# Crave Tasks Web App
+# [Crave Tasks Web App](https://crave-tasks.web.app/)
 
 ##### Crave Tasks Web Application is a kind of app that is generally used to maintain our day-to-day tasks or list everything that we have to do, with the most important tasks at the top of the list, and the least important tasks at the bottom. It is helpful in planning our daily schedules. this is the way to increase productivity, stopping you from forgetting things, helps prioritize tasks, manage tasks effectively, use time wisely, and improve time management as well as workflow. You can also control the site's functionalities by the dashboard. Here is the calendar and the watch timing system. You can manage the tasks as you wish, mark the task as completed, edit it, delete it, and more advanced options we have included there.
 
