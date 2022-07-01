@@ -9,8 +9,7 @@
 
 ***
 
-## You can see the website by clicking on [Live Link](https://crave-tasks.web.app/)
-### Live Site: https://crave-tasks.web.app/
+# [Live Link](https://crave-tasks.web.app/)
 
 ---
 
