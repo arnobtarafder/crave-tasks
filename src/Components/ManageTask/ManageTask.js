@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-hot-toast";
 import { useQuery } from "react-query";
-import Loader from "../../Components/General/Spinner/Spinner";
+import Spinner from "../../Components/General/Spinner/Spinner";
 import auth from "../../firebase.init";
 import TaskList from "./TaskList";
 const ManageTask = () => {
@@ -75,7 +75,7 @@ const ManageTask = () => {
   };
 
   if (isLoading) {
-    return <Loader />;
+    return <Spinner />;
   }
 
   return (
@@ -134,7 +134,7 @@ const ManageTask = () => {
       <div className="container w-full mx-auto">
         <div className="overflow-x-auto">
           {isLoading ? (
-            <Loader />
+            <Spinner />
           ) : taskData?.length > 0 ? (
             <>
               <table className="table w-full">
