@@ -28,7 +28,7 @@ const Navbar = ({ handleThemeChange, theme }) => {
     });
   };
 
-  const NavbarMenus = (
+  const NavbarMenu = (
     <>
       <li className="py-1 lg:py-0">
         <NavLink className="uppercase" to="/">
@@ -82,7 +82,7 @@ const Navbar = ({ handleThemeChange, theme }) => {
                 tabIndex="0"
                 className="menu menu-compact dropdown-content mt-3 p-2 shadow-xl bg-base-100 rounded-box w-52"
               >
-                {NavbarMenus}
+                {NavbarMenu}
               </ul>
             </div>
             <Link
@@ -102,7 +102,7 @@ const Navbar = ({ handleThemeChange, theme }) => {
             </Link>
           </div>
           <div className="navbar-center hidden lg:flex">
-            <ul className="menu menu-horizontal p-0 gap-3">{NavbarMenus}</ul>
+            <ul className="menu menu-horizontal p-0 gap-3">{NavbarMenu}</ul>
           </div>
           <div className="navbar-end gap-3">
             <li className="list-none">
