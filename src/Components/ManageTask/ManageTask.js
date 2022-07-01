@@ -13,10 +13,10 @@ const ManageTask = () => {
     isLoading,
     refetch,
   } = useQuery("tasks", () =>
-    fetch(`http://localhost:5000/my-tasks?email=${auth?.currentUser?.email}`, {
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
+    fetch(`http://localhost:5000/myTasks?email=${auth?.currentUser?.email}`, {
+      // headers: {
+      //   authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      // },
     }).then((res) => res.json())
   );
 
@@ -53,7 +53,7 @@ const ManageTask = () => {
   const handleUpdateStock = async (event) => {
     event.preventDefault();
 
-    await fetch(`http://localhost:5000/tasks/updateTask/${modalTask._id}`, {
+    await fetch(`http://localhost:5000/task/updateTask/${modalTask._id}`, {
       method: "PATCH",
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,

@@ -80,7 +80,7 @@ function App() {
 
         <Route path="/login" element={<Login />} />
         <Route path="/registration" element={<Registration />} />
-        <Route path='reset-password' element={<ResetPassword />} />
+        <Route path='/reset-password' element={<ResetPassword />} />
       </Routes>
       <Toaster />
 

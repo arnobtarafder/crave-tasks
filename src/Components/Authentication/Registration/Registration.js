@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  useAuthState,
   useCreateUserWithEmailAndPassword,
   useSignInWithGoogle,
   useUpdateProfile,
@@ -13,6 +14,7 @@ import Loading from "../../../Components/General/Loading/Loading";
 import useToken from "../../../Hooks/useToken";
 
 const Registration = () => {
+  const [userP, loadingP] = useAuthState(auth);
   const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
   const {
     register,
@@ -28,7 +30,7 @@ const Registration = () => {
 
   let signInError;
 
-  if (loading || gLoading || updating) {
+  if (loading || gLoading || updating || loadingP) {
     return <Loading></Loading>;
   }
 
@@ -42,20 +44,29 @@ const Registration = () => {
     );
   }
 
+  if(userP) {
+    navigate("/", { replace: true })
+  }
+
   if (token) {
     navigate("/", { replace: true });
-    toast.success("Welcome to Air Cruise Corporation!");
+    toast.success("Welcome to Crave Tasks!");
   }
 
   const onSubmit = async (data) => {
     await createUserWithEmailAndPassword(data.email, data.password);
     await updateProfile({ displayName: data.name });
   };
+
+
+
   return (
-    <div className="flex h-screen pb-0 justify-center items-center px-4 lg:px-12" style={{
-      background: `url("https://www.airbus.com/sites/g/files/jlcbta136/files/styles/airbus_1440x1440/public/2022-04/screen_France_StMichel_PNeo3_20211115.jpg?itok=k6Fba1jG")`,
+    <div className="flex h-screen pb-0 justify-center items-center px-4 lg:px-12">
+       {/* style={{
+      background: `url("https://img.freepik.com/free-vector/flat-time-management-concept-illustration_52683-54998.jpg?size=626&ext=jpg&ga=GA1.2.1022563592.1656670333")`,
       backgroundSize: "100%",
-    }}>
+      backgroundRepeat: "no-repeat",
+    }} */}
       <div className="card w-full max-w-md bg-base-100">
         <img src="{logo}" alt="" className="w-48 flex mx-auto" />
         <div className="card-body">

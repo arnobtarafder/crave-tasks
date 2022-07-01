@@ -20,29 +20,30 @@ const Profile = () => {
   const [loading, setLoading] = useState("false");
   const onSubmit = (data) => {
     setLoading(false);
-    if (!isFile) {
-      const url = `https://api.imgbb.com/1/upload?key=${upload_api_key}`;
+    // if (!isFile) {
+    //   const url = `https://api.imgbb.com/1/upload?key=${upload_api_key}`;
 
-      const formData = new FormData();
-      const image = data.profileImage[0];
-      formData.append("image", image);
+    //   const formData = new FormData();
+    //   const image = data.profileImage[0];
+    //   formData.append("image", image);
 
-      fetch(url, {
-        method: "POST",
-        body: formData,
-      })
-        .then((res) => res.json())
-        .then((result) => {
-          if (result?.success) {
-            saveProfileDataOnMongodb(result?.data?.url, data);
-            setLoading(true);
-          }
-        });
-    } else {
+    //   fetch(url, {
+    //     method: "POST",
+    //     body: formData,
+    //   })
+    //     .then((res) => res.json())
+    //     .then((result) => {
+    //       if (result?.success) {
+    //         saveProfileDataOnMongodb(result?.data?.url, data);
+    //         setLoading(true);
+    //       }
+    //     });
+    // }
+    //  else {
       const inputURL = data.imageUrl;
       saveProfileDataOnMongodb(inputURL, data);
       setLoading(true);
-    }
+    // }
   };
 
   const saveProfileDataOnMongodb = async (image, data) => {
