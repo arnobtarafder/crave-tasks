@@ -3,15 +3,28 @@ import { Toaster } from 'react-hot-toast';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Login from './Components/Authentication/Login/Login';
-import Navbar from './Components/Navbar/Navbar';
+import Loading from './Components/General/Loading/Loading';
+import Navbar from './Components/General/Navbar/Navbar';
 import Home from './Pages/Home';
 
 function App() {
 
+
   const [theme, setTheme] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+
+  useEffect(() => {
+    setLoading(false);
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+  }, []);
+
   useEffect(() => {
     setTheme(JSON.parse(window.localStorage.getItem("theme")));
   }, []);
+
   const handleThemeChange = () => {
     setTheme(!theme);
     window.localStorage.setItem("theme", !theme);
@@ -19,16 +32,19 @@ function App() {
 
   return (
     <div data-theme={theme && "night"} className="bg-base-100">
-      
 
-      <Navbar handleThemeChange={handleThemeChange} theme={theme} />
-      
+
+      {loading ? (
+        <Loading />
+      ) : (
+        <Navbar handleThemeChange={handleThemeChange} theme={theme} />
+      )}
       <h1>Hello Crave</h1>
       <h1 className="text-4xl font-bold underline">
-      Hello world!
-    </h1>
+        Hello world!
+      </h1>
 
-    <Routes>
+      <Routes>
         <Route path="/" element={<Home />} />
         {/* <Route
           path="/task"
@@ -38,7 +54,7 @@ function App() {
             </RequireAuth>
           }
         /> */}
-        
+
         <Route path="/login" element={<Login />} />
       </Routes>
       <Toaster />

@@ -3,7 +3,7 @@ import { useSignInWithEmailAndPassword, useSignInWithGoogle } from "react-fireba
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-hot-toast";
-import Loading from "../../Shared/Loading/Loading";
+import Loading from "../../General/Loading/Loading";
 import useToken from "../../../Hooks/useToken";
 import auth from "../../../firebase.init";
 

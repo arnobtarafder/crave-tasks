@@ -6,8 +6,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { signOut } from "firebase/auth";
 import { toast } from "react-hot-toast";
 import { BiLogInCircle } from "react-icons/bi";
-import useProfileImage from "../../Hooks/useProfileImage";
-import auth from "../../firebase.init";
+import useProfileImage from "../../../Hooks/useProfileImage";
+import auth from "../../../firebase.init";
 
 const Navbar = ({ handleThemeChange, theme }) => {
   const [user] = useAuthState(auth);
