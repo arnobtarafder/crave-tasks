@@ -11,7 +11,7 @@ import { MdAddCircleOutline } from "react-icons/md";
 
 
 const ManageTask = () => {
-  useTitle("Manage To Do");
+  useTitle("Manage Tasks");
   const [modalToDo, setModalToDo] = useState({});
   const [user] = useAuthState(auth);
   const {

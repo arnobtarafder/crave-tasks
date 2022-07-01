@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { FaFacebook, FaLinkedin } from "react-icons/fa";
+import { FaFacebook, FaGithub, FaLinkedin } from "react-icons/fa";
 import { useQuery } from "react-query";
 import useTitle from "../../Hooks/useTitle";
 import Loading from "../../Components/General/Loading/Loading";
@@ -54,6 +54,7 @@ const Profile = () => {
       address: data?.address,
       facebook: data?.facebook,
       linkedin: data?.linkedin,
+      github: data?.github,
       image: image,
       createdAt: new Date().toDateString(),
     };
@@ -94,11 +95,11 @@ const Profile = () => {
       </div>
     );
 
-  const { image, role, address, education, number, linkedin, facebook } =
+  const { image, role, address, education, number, github, linkedin, facebook } =
     result[0];
 
   return (
-    <div className="grid place-items-center py-36 lg:py-48 md:px-5 lg:px-72 h-screen">
+    <div className="grid place-items-center py-36 lg:py-48 md:px-5 lg:px-12 h-screen">
       <div className="profile-card w-[97%] md:w-2/3 lg:w-1/3 text-center shadow-lg rounded-lg bg-base-100 p-7">
         <div className="avatar w-40 h-40 rounded-full border-8 text-7xl font-semibold overflow-hidden mt-[-5rem] z-10 grid place-items-center mx-auto ring ring-primary ring-offset-base-100 ring-offset-2">
           {auth?.currentUser?.photoURL ? (
@@ -141,10 +142,13 @@ const Profile = () => {
             </li>
             <li className="flex justify-between w-full items-center">
               Social Links -{" "}
-              {facebook || linkedin ? (
+              {facebook || linkedin || github ? (
                 <div className="flex items-center gap-2">
                   <a target={"_blank"} href={linkedin} rel="noreferrer">
                     <FaLinkedin />
+                  </a>
+                   <a target={"_blank"} href={github} rel="noreferrer">
+                    <FaGithub />
                   </a>
                   <a target={"_blank"} href={facebook} rel="noreferrer">
                     <FaFacebook />
@@ -219,6 +223,17 @@ const Profile = () => {
             />
             {errors.linkedin?.type === "required" && (
               <span className="text-error">LinkedIn is required</span>
+            )}
+             <input
+              type="text"
+              placeholder="Github Account Link"
+              className="input input-bordered w-full"
+              required
+              defaultValue={github}
+              {...register("github", { required: true })}
+            />
+            {errors.linkedin?.type === "required" && (
+              <span className="text-error">Github is required</span>
             )}
             <input
               type="text"
