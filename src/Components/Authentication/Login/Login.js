@@ -11,10 +11,11 @@ const Login = () => {
   let navigate = useNavigate();
   let location = useLocation();
   let from = location.state?.from?.pathname || "/";
-  const [token] = useToken(gUser);
 
   const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
+
   const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
+  const [token] = useToken(gUser);
 
   useEffect(() => {
     if (user || gUser || token) {
@@ -37,17 +38,6 @@ const Login = () => {
     signInWithEmailAndPassword(email, password);
   };
 
-
-
-
-  
-  if (gLoading) {
-    return <Loading></Loading>;
-  }
-
-  if (token) {
-    navigate(from, { replace: true });
-  }
 
   return (
     <form onSubmit={handleSignIn} className="hero mt-16 bg-base-100">
@@ -75,19 +65,25 @@ const Login = () => {
                 placeholder="password"
                 className="input input-bordered"
               />
-              <label className="label">
-                <p>
-                  New to Todo App?{" "}
-                  {/* <Link to="/registration" className="text-error">
-                    Signup
-                  </Link> */}
-                </p>
-              </label>
+              <Link
+                to="/reset-password"
+                className="text-xs text-secondary py-2 hover:text-primary font-semibold"
+              >
+                Forget password ?
+              </Link>
               <p className="text-red-500">{error?.message}</p>
             </div>
             <div className="form-control mt-2">
               <button className="btn btn-success text-white">Login</button>
             </div>
+            <p className="text-center font-semibold">
+              <small>
+                Don't have an account?{" "}
+                <Link className="text-primary" to="/registration">
+                  Create New Account
+                </Link>
+              </small>
+            </p>
             <div className="divider">OR</div>
             <div className="form-control mt-2">
               <button
