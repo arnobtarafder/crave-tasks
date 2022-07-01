@@ -3,15 +3,17 @@ import { useQuery } from "react-query";
 import Loader from "../../Components/General/Spinner/Spinner";
 import auth from "../../firebase.init";
 import TaskRow from "./TaskRow";
+import useTitle from "../../Hooks/useTitle";
 
 const CompletedTask = () => {
+  useTitle("Completed To Do");
   const {
     data: completedData,
     isLoading,
     refetch,
   } = useQuery("completed", () =>
     fetch(
-      `http://localhost:5000/myTasks/completed?email=${auth?.currentUser?.email}`,
+      `http://localhost:5000/myToDoS/completed?email=${auth?.currentUser?.email}`,
       {
         headers: {
           authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -21,22 +23,22 @@ const CompletedTask = () => {
   );
 
   return (
-    <div className="px-0 lg:px-52 py-12 mt-6 lg:mt-24">
+    <div className="px-0 lg:px-52 py-12 mt-8 lg:pt-32 bg-base-100 h-screen">
       <div className="title my-2 mb-6 px-4">
-        <h3 className="text-2xl font-semibold">Completed Tasks</h3>
+        <h3 className="text-2xl font-semibold">Completed ToDoS</h3>
         <span>
           You can see all the completed tasks which you're completed already.
         </span>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mx-auto px-4">
+      <div>
         {isLoading ? (
           <Loader />
         ) : completedData?.length > 0 ? (
-          <>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mx-auto px-4">
             {completedData?.map((task) => (
               <TaskRow key={task._id} task={task} refetch={refetch} />
             ))}
-          </>
+          </div>
         ) : (
           <div className="flex items-center justify-center mx-auto rounded">
             <div>
