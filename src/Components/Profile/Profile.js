@@ -3,10 +3,12 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { FaFacebook, FaLinkedin } from "react-icons/fa";
 import { useQuery } from "react-query";
+import useTitle from "../../Hooks/useTitle";
 import Loading from "../../Components/General/Loading/Loading";
 import auth from "../../firebase.init";
 
 const Profile = () => {
+  useTitle("Profile");
   const [isShow, setIsShow] = useState(false);
   const upload_api_key = `fce22a5eefc89a21245b23e388097d21`;
   const [isFile, setIsFile] = useState(false);
@@ -20,30 +22,29 @@ const Profile = () => {
   const [loading, setLoading] = useState("false");
   const onSubmit = (data) => {
     setLoading(false);
-    // if (!isFile) {
-    //   const url = `https://api.imgbb.com/1/upload?key=${upload_api_key}`;
+    if (!isFile) {
+      const url = `https://api.imgbb.com/1/upload?key=${upload_api_key}`;
 
-    //   const formData = new FormData();
-    //   const image = data.profileImage[0];
-    //   formData.append("image", image);
+      const formData = new FormData();
+      const image = data.profileImage[0];
+      formData.append("image", image);
 
-    //   fetch(url, {
-    //     method: "POST",
-    //     body: formData,
-    //   })
-    //     .then((res) => res.json())
-    //     .then((result) => {
-    //       if (result?.success) {
-    //         saveProfileDataOnMongodb(result?.data?.url, data);
-    //         setLoading(true);
-    //       }
-    //     });
-    // }
-    //  else {
+      fetch(url, {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          if (result?.success) {
+            saveProfileDataOnMongodb(result?.data?.url, data);
+            setLoading(true);
+          }
+        });
+    } else {
       const inputURL = data.imageUrl;
       saveProfileDataOnMongodb(inputURL, data);
       setLoading(true);
-    // }
+    }
   };
 
   const saveProfileDataOnMongodb = async (image, data) => {
@@ -97,7 +98,7 @@ const Profile = () => {
     result[0];
 
   return (
-    <div className="grid place-items-center py-48 md:px-5 lg:px-5 min-h-[80vh]">
+    <div className="grid place-items-center py-36 lg:py-48 md:px-5 lg:px-72 h-screen">
       <div className="profile-card w-[97%] md:w-2/3 lg:w-1/3 text-center shadow-lg rounded-lg bg-base-100 p-7">
         <div className="avatar w-40 h-40 rounded-full border-8 text-7xl font-semibold overflow-hidden mt-[-5rem] z-10 grid place-items-center mx-auto ring ring-primary ring-offset-base-100 ring-offset-2">
           {auth?.currentUser?.photoURL ? (

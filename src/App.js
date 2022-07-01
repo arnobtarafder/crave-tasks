@@ -6,16 +6,15 @@ import Login from './Components/Authentication/Login/Login';
 import Registration from './Components/Authentication/Registration/Registration';
 import RequireAuth from './Components/Authentication/RequireAuth/RequireAuth';
 import ResetPassword from './Components/Authentication/ResetPassword/ResetPassword';
+import Calendar from './Components/Calendar/Calendar';
 import CompletedTask from './Components/CompletedTask/CompletedTask';
-import Loading from './Components/General/Loading/Loading';
 import Navbar from './Components/General/Navbar/Navbar';
 import ManageTask from './Components/ManageTask/ManageTask';
+import NotFound from './Components/NotFound/NotFound';
 import Profile from './Components/Profile/Profile';
 import Home from './Pages/Home';
 
 function App() {
-
-
   const [theme, setTheme] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -41,14 +40,12 @@ function App() {
 
 
       {loading ? (
-        <Loading />
+        <div id="preloader">
+          <div id="loader"></div>
+        </div>
       ) : (
         <Navbar handleThemeChange={handleThemeChange} theme={theme} />
       )}
-      <h1>Hello Crave</h1>
-      <h1 className="text-4xl font-bold underline">
-        Hello world!
-      </h1>
 
       <Routes>
         <Route path="/" element={<Home />} />
@@ -78,9 +75,11 @@ function App() {
           }
         />
 
+        <Route path="/calendar" element={<Calendar />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registration" element={<Registration />} />
         <Route path='/reset-password' element={<ResetPassword />} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
       <Toaster />
 

@@ -27,7 +27,7 @@ const Home = () => {
                 daily schedules.
               </p>
               <div className="flex justify-center">
-                <NavLink to="/toDoS" className="btn btn-primary text-white">
+                <NavLink to="/task" className="btn btn-primary text-white">
                   <MdAddCircleOutline className="mr-1 text-xl" /> Add Your First
                   ToDo
                 </NavLink>
