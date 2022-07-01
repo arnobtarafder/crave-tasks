@@ -9,10 +9,36 @@
 
 ***
 
-## You can see the website by clicking on...[Live Link](https://crave-tasks.web.app/)
+## You can see the website by clicking on [Live Link](https://crave-tasks.web.app/)
 ### Live Site: https://crave-tasks.web.app/
 
 ---
+
+
+## Installation
+
+```bash
+git clone https://github.com/arnobtarafder/crave-tasks.git
+```
+
+```bash
+cd crave-tasks
+```
+
+```bash
+npm install
+```
+
+```bash
+code .
+```
+
+```bash
+npm start
+```
+
+---
+
 ## Total Pages: 09
 
 * Home
